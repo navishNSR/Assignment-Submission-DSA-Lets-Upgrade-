@@ -1,0 +1,132 @@
+/*Write a function “insert_any()” for inserting a node at any given position of the linked list. Assume
+position starts at 0.*/
+#include <iostream>
+using namespace std;
+ 
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+int size = 0;
+ 
+Node* getNode(int data)
+{
+    
+    Node* newNode = new Node();
+ 
+
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+ 
+void insertPos(Node** current, int pos, int data)
+{
+    if (pos < 1 || pos > size + 1)
+        cout << "Invalid position!" << endl;
+    else {
+ 
+        while (pos--) {
+ 
+            if (pos == 0) {
+ 
+          
+                Node* temp = getNode(data);
+ 
+                
+                temp->next = *current;
+ 
+                
+                *current = temp;
+            }
+            else
+             
+              current = &(*current)->next;
+        }
+        size++;
+    }
+}
+
+void printList(struct Node* head)
+{
+    while (head != NULL) {
+        cout << " " << head->data;
+        head = head->next;
+    }
+    cout << endl;
+}
+ 
+
+int main()
+{
+    Node* head = NULL;
+    head = getNode(3);
+    head->next = getNode(5);
+    head->next->next = getNode(8);
+    head->next->next->next = getNode(10);
+ 
+    size = 4;
+ 
+    cout << "Linked list before insertion: ";
+    printList(head);
+ 
+    int data, pos;
+    cout<<"Enter the data you want to put:"<<endl;
+    cin>>data;
+    cout<<"Enter the position where you want to enter the data:"<<endl;
+    cin>>pos;
+    insertPos(&head, pos, data);
+    cout << "Linked list after insertion of 12 at position 3: ";
+    printList(head);
+ 
+    return 0;
+}
+
+
+/*Write a function “delete_beg()” for deleting a node from the beginning of the linked list.*/
+void begdelete()  
+    {  
+        Node *ptr;  
+        if(head == NULL)  
+        {  
+            cout<<"list is empty:"<<endl; 
+        }  
+        else   
+        {  
+            ptr = head;  
+            head = ptr->next;  
+            delete ptr;  
+            cout<<" Node deleted from the begining ...";  
+        }  
+    }  
+
+
+/*Write a function “delete_end()” for deleting a node from the end of the linked list.*/
+void end_delete()  
+    {  
+        Node *ptr,*ptr1;  
+        if(head == NULL)  
+        {  
+            cout<<"list is empty";  
+        }  
+        else if(head -> next == NULL)  
+        {  
+            head = NULL;  
+            delete head;  
+            cout<<"Only node of the list deleted ...";  
+        }  
+              
+        else  
+        {  
+            ptr = head;   
+            while(ptr->next != NULL)  
+                {  
+                    ptr1 = ptr;  
+                    ptr = ptr ->next;  
+                }  
+                ptr1->next = NULL;  
+                delete ptr;  
+                cout<<" Deleted Node from the last ...";  
+            }     
+        }  
