@@ -1,0 +1,43 @@
+/*In the Binary Search algorithm, it is suggested to calculate the mid as
+beg + (end - beg) / 2 instead of (beg + end) / 2. Why is it so?*/
+There is no restriction on how large the individual numbers beg and end are, so potentially they can both be larger than
+half of the maximum representable number. Adding them means that the intermediate result (beg+end) can overflow.
+The second solution seems to eliminate the risk of overflowing, but introduces another one. If the values are 
+signed values, their difference can again overflow (or underflow, depending on their signs). Unsigned values have no 
+problem.
+
+/*Write the algorithm/function for Ternary Search.*/
+int ternarySearch(int beg, int end, int search, int a[])
+ 
+{
+    while (end >= beg) {
+ 
+        int mid1 = beg + (end- beg) / 3;
+        int mid2 = end - (end - beg) / 3;
+ 
+        
+        if (a[mid1] == search) {
+            return mid1;
+        }
+        if (a[mid2] == search) {
+            return mid2;
+        }
+ 
+ 
+        if (search < a[mid1]) {
+ 
+            end= mid1 - 1;
+        }
+        else if (search > a[mid2]) {
+ 
+            beg = mid2 + 1;
+        }
+        else {
+ 
+            beg = mid1 + 1;
+            end = mid2 - 1;
+        }
+    }
+ 
+    return -1;
+}
